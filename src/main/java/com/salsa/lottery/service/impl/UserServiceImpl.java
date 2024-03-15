@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -113,6 +114,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getAllUser(UserSearchRequest request) {
+        return userRepository.findAll();
+    }
+
+    @Override
+    @SentrySpan
     public User getUserById(String id) {
         if (userRepository.findById(id).isPresent()){
             return userRepository.findById(id).get();
