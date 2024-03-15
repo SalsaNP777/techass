@@ -17,7 +17,6 @@ public class Lottery {
     @Column(name = "lottery_name")
     private String lotteryName;
     @ManyToOne
-    @JoinColumn(name = "user_lottery_id",
-            referencedColumnName = "id")
+    @JoinColumn(name = "user_lottery_id", referencedColumnName = "id")
     private UserLottery transaction;
 }
