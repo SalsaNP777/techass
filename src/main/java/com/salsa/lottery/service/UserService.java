@@ -11,7 +11,8 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface UserService {
-    ControllerResponse<?> createUser(UserCreateRequest request);
-    Page<User> getAllUserWithPage(Pageable pageable, UserSearchRequest request);
+    ControllerResponse<?> createNewUser(UserCreateRequest request);
+//    ControllerResponse<?> createUser(UserCreateRequest request);
+    ControllerResponse<?> getAllUserWithPage(Pageable pageable, UserSearchRequest request);
 //    List<User> getAllUser(UserSearchRequest request);
 }

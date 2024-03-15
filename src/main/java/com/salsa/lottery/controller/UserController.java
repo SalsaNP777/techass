@@ -25,8 +25,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<?> createUserWithDto(@RequestBody UserCreateRequest request){
-        ControllerResponse<?> response = userService.createUser(request);
+    public ResponseEntity<?> createNewUser(@RequestBody UserCreateRequest request){
+        ControllerResponse<?> response = userService.createNewUser(request);
 
         ResponseEntity result = ResponseEntity.status(HttpStatus.CREATED)
                 .body(response);
@@ -34,24 +34,27 @@ public class UserController {
         return result;
     }
 
+//    @PostMapping
+//    public ResponseEntity<?> createUserWithDto(@RequestBody UserCreateRequest request){
+//        ControllerResponse<?> response = userService.createUser(request);
+//
+//        ResponseEntity result = ResponseEntity.status(HttpStatus.CREATED)
+//                .body(response);
+//
+//        return result;
+//    }
+
     @GetMapping
     public ResponseEntity<?> getAllUserWithPage(
             @RequestParam(name = "page", defaultValue = "0") Integer page,
             @RequestParam(name = "size", defaultValue = "10") Integer size,
-            @RequestParam(name = "sort-by", defaultValue = "name") String sortBy,
-            @RequestParam(name = "direction", defaultValue = "ASC") String direction,
-            @RequestParam(name = "name", required = false) String name,
-            @RequestParam(name = "email", required = false) String email,
-            @RequestParam(name = "address", required = false) String address,
-            @RequestParam(name = "phone_number", required = false) String phoneNumber
+            @ModelAttribute UserSearchRequest request
     ){
-        UserSearchRequest request = new UserSearchRequest(name, email, address, phoneNumber);
-        Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
-        Pageable pageable = PageRequest.of(page, size, sort);
-        Page<User> resultPage = userService.getAllUserWithPage(pageable, request);
-        PageResponseWrapper<User> branchPageResponseWrapper =new PageResponseWrapper<>(resultPage);
+        Pageable pageable = PageRequest.of(page, size);
+        ControllerResponse<?> response = userService.getAllUserWithPage(pageable,request);
 
-        return ResponseEntity.status(HttpStatus.OK).body(branchPageResponseWrapper);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(response);
     }
 
 //    @GetMapping

@@ -11,17 +11,17 @@ import java.util.List;
 @Setter
 @Builder
 public class PageResponseWrapper <T>{
-    private List<T> data;
+    private T data;
     private Long totalElement;
     private Integer totalPage;
-    private Integer page;
+    private Integer currentPage;
     private Integer size;
 
-    public PageResponseWrapper(Page<T> pageFromGeneric) {
-        this.data = pageFromGeneric.getContent();
-        this.totalElement = pageFromGeneric.getTotalElements();
-        this.totalPage = pageFromGeneric.getTotalPages();
-        this.page = pageFromGeneric.getNumber();
-        this.size = pageFromGeneric.getSize();
-    }
+//    public PageResponseWrapper(Page<T> pageFromGeneric) {
+//        this.data = pageFromGeneric.getContent();
+//        this.totalElement = pageFromGeneric.getTotalElements();
+//        this.totalPage = pageFromGeneric.getTotalPages();
+//        this.page = pageFromGeneric.getNumber();
+//        this.size = pageFromGeneric.getSize();
+//    }
 }
