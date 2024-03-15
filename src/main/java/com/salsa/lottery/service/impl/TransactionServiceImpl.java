@@ -26,7 +26,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final UserService userService;
     private final LotteryService lotteryService;
 
-
+// HERE!!!
     @Override
     public ControllerResponse<?> createNewTransaction(TransactionRequest request) {
         User user = userService.getUserById(request.getUser());
