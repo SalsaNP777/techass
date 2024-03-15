@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class TransactionRequest {
-    private String id;
-    private String lotteryId;
+public class TransactionSearchRequest {
+    private String user;
+    private String lottery;
 }
