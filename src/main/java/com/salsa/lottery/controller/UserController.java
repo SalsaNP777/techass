@@ -38,20 +38,28 @@ public class UserController {
     public ResponseEntity<?> getAllUserWithPage(
             @RequestParam(name = "page", defaultValue = "0") Integer page,
             @RequestParam(name = "size", defaultValue = "10") Integer size,
-            @RequestParam(name = "sort-by", defaultValue = "name") String sortBy,
-            @RequestParam(name = "direction", defaultValue = "ASC") String direction,
-            @RequestParam(name = "name", required = false) String name,
-            @RequestParam(name = "email", required = false) String email,
-            @RequestParam(name = "address", required = false) String address,
-            @RequestParam(name = "phone_number", required = false) String phoneNumber
-    ){
-        UserSearchRequest request = new UserSearchRequest(name, email, address, phoneNumber);
-        Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
-        Pageable pageable = PageRequest.of(page, size, sort);
-        Page<User> resultPage = userService.getAllUserWithPage(pageable, request);
-        PageResponseWrapper<User> branchPageResponseWrapper =new PageResponseWrapper<>(resultPage);
+            //kalo ga butuh ga usah pake sortBy atau direction, nyusahin doang
 
-        return ResponseEntity.status(HttpStatus.OK).body(branchPageResponseWrapper);
+//            @RequestParam(name = "sort-by", defaultValue = "name") String sortBy,
+//            @RequestParam(name = "direction", defaultValue = "ASC") String direction,
+            //bisa langsung pake
+            @ModelAttribute UserSearchRequest request
+//            @RequestParam(name = "name", required = false) String name,
+//            @RequestParam(name = "email", required = false) String email,
+//            @RequestParam(name = "address", required = false) String address,
+//            @RequestParam(name = "phone_number", required = false) String phoneNumber
+    ){
+         //jadi ga usah panggil kyk gini klo pake @ModelAttribute
+//        UserSearchRequest request = new UserSearchRequest(name, email, address, phoneNumber);
+
+//        Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
+
+        Pageable pageable = PageRequest.of(page, size);
+        //langsung panggil hasil service
+        ControllerResponse<?> response = userService.getAllUserWithPage(pageable,request);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(response);
     }
 
 //    @GetMapping

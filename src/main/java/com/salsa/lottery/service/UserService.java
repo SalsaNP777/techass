@@ -12,6 +12,8 @@ import java.util.List;
 
 public interface UserService {
     ControllerResponse<?> createUser(UserCreateRequest request);
-    Page<User> getAllUserWithPage(Pageable pageable, UserSearchRequest request);
+
+    //biasain Service Returnnya langsung ControllerResponse
+    ControllerResponse<?> getAllUserWithPage(Pageable pageable, UserSearchRequest request);
 //    List<User> getAllUser(UserSearchRequest request);
 }
