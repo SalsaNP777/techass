@@ -15,4 +15,5 @@ public interface UserService {
 //    ControllerResponse<?> createUser(UserCreateRequest request);
     ControllerResponse<?> getAllUserWithPage(Pageable pageable, UserSearchRequest request);
 //    List<User> getAllUser(UserSearchRequest request);
+    User getUserById(String id);
 }

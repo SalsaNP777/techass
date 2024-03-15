@@ -9,16 +9,19 @@ import com.salsa.lottery.entity.User;
 import com.salsa.lottery.repository.UserRepository;
 import com.salsa.lottery.service.UserService;
 import com.salsa.lottery.utils.specification.UserSpecification;
+import io.sentry.spring.tracing.SentrySpan;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -27,13 +30,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ControllerResponse<?> createNewUser(UserCreateRequest request) {
-        User user = User.builder()
-                .userName(request.getName())
-                .userEmail(request.getEmail())
-                .userAddress(request.getAddress())
-                .phoneNumber(request.getPhoneNumber())
-                .build();
-        userRepository.CreateNewUser(user.getUserName(), user.getUserEmail(), user.getUserAddress(), user.getPhoneNumber());
+        String id = UUID.randomUUID().toString();
+        userRepository.CreateNewUser(id, request.getName(), request.getEmail(), request.getAddress(), request.getPhoneNumber());
+
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Invalid Id"));
 
         UserResponse userResponse = UserResponse.builder()
                 .id(user.getId())
@@ -109,5 +110,12 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         return response;
+    }
+
+    @Override
+    public User getUserById(String id) {
+        if (userRepository.findById(id).isPresent()){
+            return userRepository.findById(id).get();
+        }else throw new RuntimeException("DATA NOT FOUND");
     }
 }

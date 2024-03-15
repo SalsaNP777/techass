@@ -24,5 +24,5 @@ public class User {
     private String phoneNumber;
     @ManyToOne
     @JoinColumn(name = "user_lottery_id", referencedColumnName = "id")
-    private UserLottery transaction;
+    private Transaction transaction;
 }

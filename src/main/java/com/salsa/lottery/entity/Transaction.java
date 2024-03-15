@@ -3,16 +3,14 @@ package com.salsa.lottery.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
-@Table(name = "t_user_lottery")
+@Table(name = "transaction")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Builder
-public class UserLottery {
+public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
