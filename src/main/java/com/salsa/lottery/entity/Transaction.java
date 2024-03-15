@@ -20,4 +20,5 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name = "lottery_id", referencedColumnName = "id")
     private Lottery lottery;
+    private String winner;
 }

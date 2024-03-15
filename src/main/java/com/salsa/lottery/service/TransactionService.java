@@ -7,4 +7,5 @@ import org.springframework.data.domain.Pageable;
 public interface TransactionService {
     ControllerResponse<?> createNewTransaction(TransactionRequest request);
     ControllerResponse<?> getAllTransactionWithPage(Pageable pageable, TransactionRequest request);
+    ControllerResponse<?> winnerUser(TransactionRequest request);
 }
