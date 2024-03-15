@@ -3,8 +3,6 @@ package com.salsa.lottery.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "lottery")
 @NoArgsConstructor
@@ -18,6 +16,7 @@ public class Lottery {
     private String id;
     @Column(name = "lottery_name")
     private String lotteryName;
-    @OneToMany(mappedBy = "lottery")
-    private List<UserLottery> transaction;
+    @ManyToOne
+    @JoinColumn(name = "user_lottery_id", referencedColumnName = "id")
+    private UserLottery transaction;
 }
