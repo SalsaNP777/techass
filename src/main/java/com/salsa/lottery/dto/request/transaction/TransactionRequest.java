@@ -8,6 +8,5 @@ import lombok.*;
 @Setter
 @Builder
 public class TransactionRequest {
-    private String id;
     private String lotteryId;
 }

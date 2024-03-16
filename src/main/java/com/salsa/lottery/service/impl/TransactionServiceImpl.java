@@ -38,7 +38,6 @@ public class TransactionServiceImpl implements TransactionService {
     private final UserService userService;
     private final LotteryService lotteryService;
 
-//    HELPP AGAIN!!!
     @Override
     public ControllerResponse<?> createNewTransaction(TransactionRequest request) {
         List<User> users = userService.getAllUser();
@@ -51,6 +50,7 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction transaction = Transaction.builder()
                 .lottery(lottery)
                 .user(user)
+                .winner(user.getUserName())
                 .build();
         transactionRepository.save(transaction);
 
